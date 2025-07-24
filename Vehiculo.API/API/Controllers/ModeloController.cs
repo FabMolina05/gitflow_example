@@ -1,7 +1,6 @@
 ﻿using Abstracciones.Interfaces.API;
 using Abstracciones.Interfaces.Flujo;
 using Abstracciones.Modelos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,7 +19,6 @@ namespace API.Controllers
         }
         #region Operaciones
         [HttpGet("{IdMarca}")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> Obtener(Guid IdMarca)
         {
             var resultado = await _modeloFlujo.Obtener(IdMarca);
