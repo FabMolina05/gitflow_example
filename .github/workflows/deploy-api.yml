@@ -21,14 +21,14 @@ name: Build and deploy Vehiculo semana 09
 
 env:
   AZURE_WEBAPP_NAME: persona-api    # Nombre real de tu Azure Web App (debe coincidir con el publish profile)
-  AZURE_WEBAPP_PACKAGE_PATH: './Semana 09-Documentos/Vehiculo.API/API'     # Ruta al proyecto API
+  AZURE_WEBAPP_PACKAGE_PATH: './Vehiculo.API/API'     # Ruta al proyecto API
   DOTNET_VERSION: '8.0'                  # VersiÃ³n .NET 8.0 segÃºn tu proyecto
 
 on:
   push:
     branches: [ "main" ]
     paths-ignore:
-      - 'Semana 09-Documentos/Vehiculo.API/BD/**'
+      - 'Vehiculo.API/BD/**'
   workflow_dispatch:
 
 permissions:
@@ -68,7 +68,7 @@ jobs:
 
       - name: Build with dotnet (excluding BD project)
         run: |
-          cd "Semana 09-Documentos/Vehiculo.API"
+          cd "Vehiculo.API"
           dotnet build "Abstracciones/Abstracciones.csproj" --configuration Release --no-restore
           dotnet build "DA/DA.csproj" --configuration Release --no-restore
           dotnet build "DA.EF/DA.EF.csproj" --configuration Release --no-restore
@@ -80,11 +80,11 @@ jobs:
 
       - name: Run tests (excluding BD project)
         run: |
-          cd "Semana 09-Documentos/Vehiculo.API"
+          cd "Vehiculo.API"
           dotnet test "API/API.csproj" --no-restore --verbosity normal --configuration Release || echo "No tests found or test execution failed"
 
       - name: dotnet publish
-        run: dotnet publish "Semana 09-Documentos/Vehiculo.API/API/API.csproj" -c Release -o ./publish --no-restore
+        run: dotnet publish "Vehiculo.API/API/API.csproj" -c Release -o ./publish --no-restore
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
